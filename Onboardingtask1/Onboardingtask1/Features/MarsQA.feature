@@ -12,12 +12,21 @@ Scenario: 1) I will add the skills on the profile page
 	When  I navigate skills tab and add the skills 
 	Then The skills should be added to the profile page successfully
 
-Scenario Outline:2) I will update the skills on the profilepage
+Scenario:2) I will update the skills on the profilepage
     Given I logged into Mars QA successfully
 	When I navigate to skills tab and update skills
-	Then The skills should be deleted sucessfully
+	Then The skills should be updated sucessfully
 
-Scenario Outline: 3) I will delete the skills on the profile page 
+Scenario: 3) I will delete the skills on the profile page 
      Given I logged into Mars QA successfully
 	 When  I navigate to skills tab and delete skills
 	 Then  The skills should be deleted sucessfuly
+Scenario Outline:  4) I will add the language on the profile page		
+     Given  I logged into Mars QA successfully
+	 When  I navigate language tab and add new '<Language>' and '<Level>' 
+	 Then  '<Language>' and '<Level>'should be add successfully in the language tab
+
+	 Examples: 
+   | Language |  Level  |
+   | Telugu   |  Fluent |
+   | Hindi    |  Basic  |

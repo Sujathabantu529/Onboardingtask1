@@ -51,10 +51,10 @@ namespace Onboardingtask1.StepDefinition
         {
             profilePageObj.UpdateSkills(driver);
         }
-
-        [Then(@"The skills should be deleted sucessfully")]
+        [Then(@"The skills should be updated sucessfully")]
         public void ThenTheSkillsShouldBeUpdatedSucessfully()
         {
+
             string updatedskill = profilePageObj.alertWindow(driver);
             Assert.That(updatedskill == "Dance4 has been updated to your skills", "Dance has not been matched correctly");
 
@@ -75,5 +75,34 @@ namespace Onboardingtask1.StepDefinition
 
         }
 
+        [When(@"I navigate language tab and add new '([^']*)' and '([^']*)'")]
+        public void WhenINavigateLanguageTabAndAddNewAnd(string language, string level)
+        {
+
+            profilePageObj.AddLanguage(driver, language, level);
+
+
+        }
+
+        [Then(@"'([^']*)' and '([^']*)'should be add successfully in the language tab")]
+        public void ThenAndShouldBeAddSuccessfullyInTheLanguageTab(string language, string level)
+        {
+            string addedLanguage = profilePageObj.GetAddLanguage(driver);
+            string addedLanguageLevel = profilePageObj.GetAddLanguageLevel(driver);
+
+            Assert.That(addedLanguage == language, "Actual language and expected language do not match.");
+            Assert.That(addedLanguageLevel == level, "Actual level and expected level do not match.");
+
+
+
+
+        }
+
+
+
     }
+
+
+
+
 }

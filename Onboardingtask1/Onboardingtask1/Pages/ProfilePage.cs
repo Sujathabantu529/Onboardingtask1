@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Onboardingtask1.Pages
 {
@@ -27,6 +28,11 @@ namespace Onboardingtask1.Pages
         private IWebElement beginneroption => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td/div/div[2]/select/option[2]"));
         private IWebElement updatebutton => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td/div/span/input[1]"));
         private IWebElement deletebutton => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]/i"));
+        private IWebElement languagetab => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]"));
+        private IWebElement addnewlanguagebutton => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div"));
+        private IWebElement addlanguagetextbox => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[1]/input"));
+        private IWebElement addlanguageLevelDropdown => driver.FindElement(By.Name("level"));
+        private IWebElement addlanguagebutton => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]"));
 
 
         public void AddSkills(IWebDriver driver)
@@ -47,6 +53,8 @@ namespace Onboardingtask1.Pages
             expertoption.Click();
 
             addbutton.Click();
+
+           
 
         }
       
@@ -88,7 +96,7 @@ namespace Onboardingtask1.Pages
             Wait.WaitForELementToExist(driver, "CssSelector", "[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]", 5);
 
             IWebElement confirmationAlert = driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]"));
-            Console.WriteLine("Actual text captured is:" + confirmationAlert.Text);
+            //Console.WriteLine("Actual text captured is:" + confirmationAlert.Text);
             return confirmationAlert.Text;
 
 
@@ -100,6 +108,69 @@ namespace Onboardingtask1.Pages
 
 
 
+        public void AddLanguage(IWebDriver driver, string language, string level)
+        {
+            Wait.WaitTobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[1]/a[1]", 10);
+            languagetab.Click();
+
+            addnewlanguagebutton.Click();
+
+           
+
+            Wait.WaitTobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[1]/input", 10);
+            addlanguagetextbox.Click();
+            addlanguagetextbox.SendKeys(language);
+
+
+
+            //Select the language level from the dropdown
+            addlanguageLevelDropdown.Click();
+            SelectElement selectAddlanguageLevel = new SelectElement(addlanguageLevelDropdown);
+            selectAddlanguageLevel.SelectByText(level);
+
+            Wait.WaitTobeClickable(driver, "XPath", "//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]", 10);
+            addlanguagebutton.Click();
+
+
+
+
+        }
+        public string GetAddLanguage(IWebDriver driver)
+        {
+
+            IWebElement actualLanguage = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[1]"));
+            return actualLanguage.Text;
+           
+
+        }
+        public string GetAddLanguageLevel(IWebDriver driver)
+        {
+            IWebElement actualLanguageLevel = driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr[last()]/td[2]"));
+            return actualLanguageLevel.Text;
+
+        }
+            
+        
+
+
+        //public string alertWindow(IWebDriver driver)
+        //{
+
+        //    Wait.WaitForELementToExist(driver, "CssSelector", "[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]", 5);
+
+        //    IWebElement confirmationAlert = driver.FindElement(By.CssSelector("[class=\"ns-box ns-growl ns-effect-jelly ns-type-success ns-show\"]"));
+        //    //Console.WriteLine("Actual text captured is:" + confirmationAlert.Text);
+        //    return confirmationAlert.Text;
+
+
+
+
+
+        //}
+
+
+
+     
 
     }
 }
