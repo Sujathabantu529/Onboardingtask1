@@ -87,15 +87,12 @@ namespace Onboardingtask1.StepDefinition
         [Then(@"'([^']*)' and '([^']*)'should be add successfully in the language tab")]
         public void ThenAndShouldBeAddSuccessfullyInTheLanguageTab(string language, string level)
         {
+
             string addedLanguage = profilePageObj.GetAddLanguage(driver);
             string addedLanguageLevel = profilePageObj.GetAddLanguageLevel(driver);
 
-            Assert.That(addedLanguage == language, "Actual language and expected language do not match.");
-            Assert.That(addedLanguageLevel == level, "Actual level and expected level do not match.");
-
-
-
-
+            Assert.AreEqual(language, addedLanguage, "Actual language and expected language do not match.");
+            Assert.AreEqual(level, addedLanguageLevel, "Actual level and expected level do not match.");
         }
 
 
